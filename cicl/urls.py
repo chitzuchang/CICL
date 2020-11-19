@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path
-from .views import GetAllDocumentAPIView, DocumentAPIView 
+from .views import GetAllDocumentAPIView, DocumentAPIView, MainPage 
 
 urlpatterns = [
+    # Main Page URL
+    path('', MainPage, name='index'),
+
+    # Admin URLs
     path('admin/', admin.site.urls),
 
     # Document URLs

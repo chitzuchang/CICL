@@ -1,9 +1,14 @@
+from django.shortcuts import render
 from rest_framework.permissions import AllowAny 
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializer import DocumentSerializer
 from .models import Document
+
+# Main Page View
+def MainPage(request):
+  return render(request, template_name='index.html')
 
 # Document Views 
 class GetAllDocumentAPIView(APIView):
