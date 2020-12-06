@@ -1,11 +1,11 @@
 <template>
-  <footer class="footer">
+  <div class="hero-foot">
     <div class="content has-text-centered">
       <p>
         <strong>Copyright {{ new Date().getFullYear() }} </strong>
       </p>
     </div>
-  </footer>
+  </div>
 </template>
 
 <script>

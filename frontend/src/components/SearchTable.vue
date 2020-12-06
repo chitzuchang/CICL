@@ -1,80 +1,81 @@
 <template>
-  <div id="app" class="container">
-    <section>
-      <b-table
-        :data="data"
-        :loading="loading"
-        paginated
-        backend-pagination
-        :total="total"
-        :per-page="perPage"
-        @page-change="onPageChange"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-        backend-sorting
-        :default-sort-direction="defaultSortOrder"
-        :default-sort="[sortField, sortOrder]"
-        @sort="onSort"
-      >
-        <b-table-column
-          field="original_title"
-          label="Title"
-          sortable
-          v-slot="props"
-        >
-          {{ props.row.original_title }}
-        </b-table-column>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-one-quarter">
+          <b-input placeholder="Location"></b-input>
+        </div>
+        <div class="column is-one-quarter">
+          <b-input placeholder="Core Name"></b-input>
+        </div>
+      </div>
 
-        <b-table-column
-          field="vote_average"
-          label="Vote Average"
-          numeric
-          sortable
-          v-slot="props"
-        >
-          <span class="tag" :class="type(props.row.vote_average)">
-            {{ props.row.vote_average }}
-          </span>
-        </b-table-column>
+      <div class="columns is-centered">
+        <div class="column is-offset-one-quarter is-half">
+          <b-input placeholder="Search..."></b-input>
+        </div>
 
-        <b-table-column
-          field="vote_count"
-          label="Vote Count"
-          numeric
-          sortable
-          v-slot="props"
-        >
-          {{ props.row.vote_count }}
-        </b-table-column>
+        <div class="column">
+          <button class="button is-info is-bold">Search</button>
+        </div>
+      </div>
 
-        <b-table-column
-          field="release_date"
-          label="Release Date"
-          sortable
-          centered
-          v-slot="props"
-        >
-          {{
-            props.row.release_date
-              ? new Date(props.row.release_date).toLocaleDateString()
-              : "unknown"
-          }}
-        </b-table-column>
+      <div class="column">
+        <section>
+          <b-table
+            :data="data"
+            :loading="loading"
+            hoverable
+            paginated
+            backend-pagination
+            :total="total"
+            :per-page="perPage"
+            @page-change="onPageChange"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+            backend-sorting
+            :default-sort-direction="defaultSortOrder"
+            :default-sort="[sortField, sortOrder]"
+            @sort="onSort"
+          >
+            <b-table-column
+              field="original_title"
+              label="Location"
+              v-slot="props"
+            >
+              {{ props.row.original_title }}
+            </b-table-column>
 
-        <b-table-column label="Overview" width="500" v-slot="props">
-          {{ props.row.overview | truncate(80) }}
-        </b-table-column>
-      </b-table>
-    </section>
+            <b-table-column
+              field="vote_count"
+              label="Description"
+              width="400"
+              v-slot="props"
+            >
+              {{ props.row.vote_count }}
+            </b-table-column>
+
+            <b-table-column label="Download Link" width="400" v-slot="props">
+              <button @click="download">
+                <i class="far fa-arrow-alt-circle-down" />
+              </button>
+              {{ props.row.overview | truncate(80) }}
+            </b-table-column>
+          </b-table>
+        </section>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import axios from "axios";
+
   export default {
     name: "SearchTable",
-    data() {
+    data: function() {
       return {
         data: [],
         total: 0,
