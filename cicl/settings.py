@@ -15,6 +15,12 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Media Files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+# Static Files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
@@ -36,7 +42,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third-party Apps
+    'corsheaders',
     'rest_framework',
 
     # User Defined Apps
@@ -56,6 +62,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Third-party Middleware
+    'corsheaders.middleware.CorsMiddleware',
+
+    # Default Django Middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,6 +73,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
 ]
 
 ROOT_URLCONF = 'cicl.urls'

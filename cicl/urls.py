@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.conf.urls import url
 from django.urls import path
-from .views import GetAllDocumentAPIView, DocumentAPIView, MainPage 
+from .views import GetAllDocumentAPIView, DocumentAPIView, MainPage
 
 urlpatterns = [
     # Main Page URL
@@ -26,6 +28,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Document URLs
-    url(r'^document/get/$', GetAllDocumentAPIView.as_view(), name='get_document'),
-    path('document/<uuid:pk>', DocumentAPIView.as_view(),name='document'),
-]
+    url(
+        r'^document/get/$',
+        GetAllDocumentAPIView.as_view(),
+        name='get_document'
+        ),
+    path(
+        'document/get/<uuid:pk>',
+        DocumentAPIView.as_view(),
+        name='document'
+        ),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
