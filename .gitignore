@@ -269,3 +269,27 @@ test/
 node_modules/
 npm-debug.log
 yarn-error.log
+
+# Generated files frontend
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Lock files
+yarn.lock
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
