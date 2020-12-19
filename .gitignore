@@ -278,7 +278,7 @@ yarn-error.log
 .env.*.local
 
 # Lock files
-yarn.lock
+*/yarn.lock
 
 # Log files
 npm-debug.log*
