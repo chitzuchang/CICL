@@ -1,15 +1,15 @@
 <template>
-  <div class="hero-foot">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Copyright {{ new Date().getFullYear() }} </strong>
-      </p>
+  <footer class="footer">
+    <div class="content is-primary has-text-centered">
+      <strong style="color: #fff">
+        Copyright {{ new Date().getFullYear() }}
+      </strong>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>
-  export default {
-    name: "Footer",
-  };
+export default {
+  name: "Footer",
+};
 </script>

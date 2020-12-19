@@ -1,16 +1,58 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Buefy from 'buefy'
-import 'buefy/dist/buefy.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Vue from "vue";
+import App from "./App.vue";
 
-library.add(faArrowAltCircleDown)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import axios from "axios";
+import Buefy from "buefy";
+import "./styles.scss";
+import { library } from "@fortawesome/fontawesome-svg-core";
 
-Vue.config.productionTip = false 
-Vue.use(Buefy)
+// internal icons
+import {
+  faCheck,
+  faCheckCircle,
+  faInfoCircle,
+  faExclamationTriangle,
+  faExclamationCircle,
+  faArrowUp,
+  faAngleRight,
+  faAngleLeft,
+  faAngleDown,
+  faEye,
+  faEyeSlash,
+  faCaretDown,
+  faCaretUp,
+  faUpload,
+  faFileDownload,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(
+  faCheck,
+  faCheckCircle,
+  faInfoCircle,
+  faExclamationTriangle,
+  faExclamationCircle,
+  faArrowUp,
+  faAngleRight,
+  faAngleLeft,
+  faAngleDown,
+  faEye,
+  faEyeSlash,
+  faCaretDown,
+  faCaretUp,
+  faUpload,
+  faFileDownload
+);
+Vue.component("vue-fontawesome", FontAwesomeIcon);
+
+Vue.prototype.$http = axios;
+Vue.config.productionTip = false;
+
+Vue.use(Buefy, {
+  defaultIconComponent: "vue-fontawesome",
+  defaultIconPack: "fas",
+});
+
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
