@@ -1,9 +1,11 @@
 <template>
-  <footer class="footer">
-    <div class="content is-primary has-text-centered">
-      <strong style="color: #fff">
-        Copyright {{ new Date().getFullYear() }}
-      </strong>
+  <footer class="footer is-align-content-end">
+    <div class="container">
+      <div class="content is-primary has-text-centered">
+        <strong style="color: #fff">
+          Copyright {{ new Date().getFullYear() }}
+        </strong>
+      </div>
     </div>
   </footer>
 </template>

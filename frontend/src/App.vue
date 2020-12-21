@@ -1,8 +1,12 @@
 <template>
-  <div>
-    <Navbar />
-    <SearchTable />
-    <Footer />
+  <div class="app">
+    <div class="app-content">
+      <Navbar />
+      <SearchTable />
+    </div>
+    <footer>
+      <Footer />
+    </footer>
   </div>
 </template>
 

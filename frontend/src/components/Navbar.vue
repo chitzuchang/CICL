@@ -1,21 +1,27 @@
 <template>
-  <section class="hero is-info is-bold">
+  <section class="hero is-primary">
     <div class="hero-head">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column" style="padding: 2%">
-            <img src="../assets/cicl_logo.png" alt="CICL Logo" />
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <div class="navbar-item">
+              <img src="../assets/cicl_logo.png" alt="CICL Logo" />
+            </div>
+            <div class="navbar-item">
+              <h1 class="title">Canadian Ice Core Lab</h1>
+            </div>
           </div>
-          <div class="column is-8">
-            <h1 class="title">Canadian Ice Core Lab</h1>
-          </div>
-          <div class="column is-2">
-            <b-button type="is-info" @click="redirect" inverted outlined>
-              Admin
-            </b-button>
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <span class="navbar-item">
+                <b-button type="is-info" @click="redirect" inverted outlined>
+                  Admin
+                </b-button>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
     </div>
   </section>
 </template>

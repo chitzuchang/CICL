@@ -1,24 +1,37 @@
 <template>
   <div class="hero-body">
     <div class="container">
+      <form v-on:submit: @submit.prevent="onSearch">
+        <div class="columns is-mobile is-centered">
+          <div class="column is-one-third">
+            <b-input
+            placeholder="Core Name"
+            v-model="coreNameSearch"
+            ></b-input>
+          </div>
+          <div class="column is-one-third">
+            <b-input
+            placeholder="Location"
+            v-model="locationSearch"
+            ></b-input>
+          </div>
+        </div>
 
-      <div class="columns is-centered">
-        <div class="column is-one-quarter">
-          <b-input placeholder="Location"></b-input>
+        <div class="columns is-mobile is-centered">
+          <div class="column is-two-thirds">
+            <b-field grouped>
+              <b-input
+                placeholder="Parameters, Isotopes, or Researchers..."
+                v-model="paramSearch"
+                expanded>
+              </b-input>
+              <p class="control">
+                <button class="button is-primary">Search</button>
+              </p>
+            </b-field>
+          </div>
         </div>
-        <div class="column is-one-quarter">
-          <b-input placeholder="Core Name"></b-input>
-        </div>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-offset-one-quarter is-half">
-          <b-input placeholder="Search..."></b-input>
-        </div>
-        <div class="column">
-          <button class="button is-info is-bold">Search</button>
-        </div>
-      </div>
+      </form>
 
       <div class="column">
         <section>
@@ -58,14 +71,30 @@
               label="Parameters"
               v-slot="props"
             >
-              {{ props.row.parameters }}
+            <div>
+              <span
+              v-for="(param, idx) in props.row.parameters.slice(0, maxDisplayParams)"
+              :key="idx"
+              >
+                {{
+                  format(
+                    idx,
+                    Math.min(props.row.parameters.length, maxDisplayParams),
+                    param.type
+                  )
+                }}
+              </span>
+            </div>
             </b-table-column>
 
-            <b-table-column label="Download" v-slot="props">
-              <b-button 
+            <b-table-column centered v-slot="props">
+              <b-button
+              type="is-primary"
               @click.prevent="downloadFile(`${props.row.document_file}`)"
-              icon-left="file-download" 
+              icon-left="file-download"
+              outlined
               download>
+                Download
               </b-button>
             </b-table-column>
 
@@ -76,20 +105,29 @@
                     <p>
                       Researchers:
                       <ul>
-                        <li v-for="r in props.row.researchers" :key="r">
-                          {{ r.first_name }} {{ r.last_name }}
+                        <li
+                        v-for="(researcher, idx) in props.row.researchers" 
+                        :key="idx"
+                        >
+                          {{ researcher.first_name }} {{ researcher.last_name }}
                         </li>
                       </ul>
                       Isotopes:
                       <ul>
-                        <li v-for="i in props.row.isotopes" :key="i">
-                          {{ i.name }} {{ i.symbol }}
+                        <li
+                        v-for="(isotope, idx) in props.row.isotopes"
+                        :key="idx"
+                        >
+                          {{ isotope.name }} {{ isotope.symbol }}
                         </li>
                       </ul>
                       Parameters:
                       <ul>
-                        <li v-for="p in props.row.parameters" :key="p">
-                          {{ p.type }}
+                        <li
+                        v-for="(param, idx) in props.row.parameters"
+                        :key="idx"
+                        >
+                          {{ param.type }}
                         </li>
                       </ul>
                       Description:<br>
@@ -119,13 +157,19 @@ export default {
       perPage: 1,
       defaultOpenedDetails: [1],
       showDetailIcon: true,
+      maxDisplayParams: 3,
+      coreNameSearch: '',
+      locationSearch: '',
+      paramSearch: ''
     };
   },
+
   methods: {
     loadAsyncData() {
       const params = [
-        `limit=1`,
+        `limit=${this.perPage}`,
         `offset=${this.page - 1}`,
+        `search=${this.searchParams}`
       ].join("&");
 
       this.$http
@@ -153,6 +197,15 @@ export default {
       this.loadAsyncData();
     },
 
+    onSearch() {
+      this.searchParams = [
+        this.coreNameSearch,
+        this.locationSearch,
+        this.paramSearch
+        ].join(',');
+      this.loadAsyncData();
+    },
+
     downloadFile(url) {
       const filename = url.split('/').pop()
 
@@ -171,6 +224,10 @@ export default {
         link.click();
       });
     },
+
+    format(idx, maxIdx, paramType) {
+      return idx !== (maxIdx - 1) ? `${paramType},` : paramType;
+   }
   },
 
   mounted() {
