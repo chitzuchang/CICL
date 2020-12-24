@@ -35,6 +35,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'srit-icecore.facsci.ualberta.ca',
+    '142.244.163.66',
+    'cicl-database.eas.ualberta.ca',
 ]
 
 # Application definition
@@ -82,6 +84,12 @@ CORS_ALLOWED_ORIGINS = [
     'https://srit-icecore.facsci.ualberta.ca',
     'https://srit-icecore.facsci.ualberta.ca:8000',
     'https://srit-icecore.facsci.ualberta.ca:8080',
+    'https://142.244.163.66',
+    'https://142.244.163.66:8000',
+    'https://142.244.163.66:8080',
+    'https://cicl-database.eas.ualberta.ca',
+    'https://cicl-database.eas.ualberta.ca:8000',
+    'https://cicl-database.eas.ualberta.ca:8080',
 ]
 
 ROOT_URLCONF = 'cicl.urls'
